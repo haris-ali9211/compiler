@@ -1,0 +1,146 @@
+class A{
+public Whole func(Whole b){
+Whole a = 123 ;
+}
+abc.fun(12);
+abc.fun();
+}
+
+-----------------------------------------------------------------
+class A{
+loop(Whole a = 123 ; a=3 ; a++){
+Whole b = 123;
+}	
+}
+
+-----------------------------------------------------------------
+class A{
+loop(Whole a = 123 ; a <= a.length ; a++){
+Whole b = 123;
+}	
+} 
+
+-----------------------------------------------------------------
+class A{
+arraylist(Whole) a = new arraylist{};
+} 
+
+-----------------------------------------------------------------
+class A{
+Whole a[];
+Whole a[][];
+} 
+
+-----------------------------------------------------------------
+class A{
+Whole a[] = {1,2,3};
+Whole a[][] = {{1,2,3},{3,4,1},{1,2,3}};
+} 
+
+-----------------------------------------------------------------
+class A{
+show("haros",haris);
+} 
+
+==========================================
+class A{
+if(a==b){
+Real a;
+}
+}
+
+-----------------------------------------------------------------
+class A{
+scan("haros");
+scan(h);
+} 
+
+-----------------------------------------------------------------
+class A{
+switch ( a==b ){
+prob 1;
+a;
+dlf ;
+b;
+} 
+
+
+-----------------------------------------------------------------
+class A{
+till(a==4){
+f++;
+}
+} 
+
+
+==========================================
+class A{
+Real a;
+} 
+
+interface C {}
+==============================
+
+class A{
+private Text func(){
+Real a;
+}
+} 
+
+class D extend A{
+protected Whole func(){
+Real b;
+}
+} 
+
+
+-----------------------------------------------
+
+interface AA{}
+interface S implements AA{}
+
+class A{
+private Text func(){
+Real a;
+}
+} 
+
+class D extend A{
+protected Whole func(){
+Real b;
+}
+} 
+
+
+
+==========================================
+
+interface AA{}
+interface S implements AA{}
+
+class A{
+private Text func(){
+Real a;
+}
+}
+
+class D extend A{
+protected Whole func(){
+Real b;
+}
+}
+
+
+class FF extend A{
+public Whole func(Whole a, Text b){
+Real b;
+}
+}
+
+class haha extend FF{
+Real aa = 1.2;
+private Whole funcca(){
+Real aa = 1.2;
+
+}
+}

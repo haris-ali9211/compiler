@@ -1,0 +1,2502 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package javaapplication24;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+
+class Method {
+
+    static boolean id(String inp) {
+        Pattern identifier = Pattern.compile("^[a-z A-Z]+((\\d)*[_]*)[a-z A-Z]*$");
+        Matcher m = identifier.matcher(inp);
+        if (m.matches()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    static boolean num(String inp) {
+        Pattern num = Pattern.compile("[+-]?[0-9]+");
+
+        Matcher m = num.matcher(inp);
+        if (m.matches()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    static boolean deci(String inp) {
+        Pattern deci = Pattern.compile("[+-]?[0-9]*\\.[0-9]+");
+
+        Matcher m = deci.matcher(inp);
+        if (m.matches()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    static boolean alpha(String inp) {
+        Pattern alpha = Pattern.compile("'(\\[tvrnafb\\]|[^\\'])'");
+
+        Matcher m = alpha.matcher(inp);
+        if (m.matches()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    static boolean str(String inp) {
+        Pattern str = Pattern.compile("\"(.*?)\"");
+
+        Matcher m = str.matcher(inp);
+        if (m.matches()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+public class JavaApplication24 {
+
+    
+    static ArrayList Arr = new ArrayList();
+    static ArrayList Value = new ArrayList();
+    static int count;
+
+    static void word(String word, int count) {
+
+        switch (word) {
+
+            case "num":
+            case "deci":
+            case "alpha":
+            case "str":
+            case "null":
+            case "boolean":
+
+                // System.out.println("Token: [CP: Data type, VP: " + word + ", Line: " + count + "]");
+                Arr.add("DT");
+                Value.add(word);
+                break;
+
+            case "if":
+            case "else":
+            case "for":
+            case "while":
+            case "switch":
+            case "return":
+            case "super":
+            case "abstract":
+            case "interface":
+            case "implements":
+            case "opt":
+            case "new":
+            case "class":
+            case "default":
+            case "jump":
+            case "end":
+            case "array":
+            case "ArrayList":
+            case "print":
+            case "input":
+
+                //System.out.println("Token: [ CP: " + word + ", VP: " + word + ", Line: " + count + "]");
+                Arr.add(word);
+                Value.add(word);
+                break;
+
+            case "fn":
+
+                //System.out.println("Token: [ CP: function, VP: " + word + ", Line: " + count + "]");
+                Arr.add("function");
+                Value.add(word);
+                break;
+
+            case "public":
+            case "private":
+
+                //System.out.println("Token: [CP: Access modifiers, VP: " + word + ", Line: " + count + "]");
+                Arr.add("AM");
+                Value.add(word);
+                break;
+
+            case "inherit":
+
+                //System.out.println("Token: [CP: Inheritance, VP: " + word + ", Line: " + count + "]");
+                Arr.add("Inheritance");
+                Value.add(word);
+                break;
+
+            case "main":
+
+                //System.out.println("Token: [CP: Main method, VP: " + word + ", Line: " + count + "]");
+                Arr.add("main");
+                Value.add(word);
+                break;
+
+            case ":":
+                Arr.add("Colon");
+                Value.add(word);
+                break;
+            case "(":
+                Arr.add("Small bracket OP");
+                Value.add(word);
+                break;
+            case ")":
+                Arr.add("Small bracket CL");
+                Value.add(word);
+                break;
+            case "[":
+                Arr.add("Large bracket OP");
+                Value.add(word);
+                break;
+            case "]":
+                Arr.add("Large bracket CL");
+                Value.add(word);
+                break;
+            case ",":
+                Arr.add("Comma");
+                Value.add(word);
+                break;
+            case ".":
+                Arr.add("Dot");
+                Value.add(word);
+                break;
+
+            //System.out.println("Token: [CP: Punctuator, VP: " + word + ", Line: " + count + "]");
+            case "+":
+            case "-":
+            case "/":
+            case "*":
+            case "%":
+
+                //System.out.println("Token: [CP: Arithematic operators, VP: " + word + ", Line: " + count + "]");
+                Arr.add("AO");
+                Value.add(word);
+                break;
+
+            case "+=":
+            case "-=":
+            case "/=":
+            case "*=":
+            case "%=":
+
+                //System.out.println("Token: [CP: Compound operators, VP: " + word + ", Line: " + count + "]");
+                Arr.add("CO");
+                Value.add(word);
+                break;
+
+            case "==":
+            case ">=":
+            case "<=":
+            case "<":
+            case ">":
+            case "!=":
+
+                //System.out.println("Token: [CP: Relational operator, VP: " + word + ", Line: " + count + "]");
+                Arr.add("RO");
+                Value.add(word);
+                break;
+
+            case "&&":
+            case "||":
+            case "!":
+
+                //System.out.println("Token: [CP: Logical operator, VP: " + word + ", Line: " + count + "]");
+                Arr.add("LO");
+                Value.add(word);
+                break;
+
+            case "=":
+
+                //System.out.println("Token: [CP: Assignment operator, VP: " + word + ", Line: " + count + "]");
+                Arr.add("assignment");
+                Value.add(word);
+                break;
+
+            case "++":
+            case "--":
+
+                //System.out.println("Token: [CP: Inc/Dec, VP: " + word + ", Line: " + count + "]");
+                Arr.add("inc/dec");
+                Value.add(word);
+                break;
+
+            default:
+
+                boolean ab = Method.id(word);
+
+                boolean num = Method.num(word);
+
+                boolean alpha = Method.alpha(word);
+
+                boolean deci = Method.deci(word);
+
+                boolean str = Method.str(word);
+
+                if (num) {
+                    //System.out.println("Token: [CP: Integer constant, VP: " + word + ", Line: " + count + "]");
+                    Arr.add("Integer constant");
+                    Value.add(word);
+                } else if (alpha) {
+                    //System.out.println("Token: [CP: Character constant, VP: " + word + ", Line: " + count + "]");
+                    Arr.add("Character constant");
+                    Value.add(word);
+                } else if (deci) {
+                    //System.out.println("Token: [CP: Float constant,VP: " + word + ", Line:" + count + "]");
+                    Arr.add("Float constant");
+                    Value.add(word);
+                } else if (str) {
+                    //System.out.println("Token: [CP: String consonant,VP: " + word + ", Line: " + count + "]");
+                    Arr.add("String constant");
+                    Value.add(word);
+                } else if (ab) {
+                    //System.out.println("Token: [CP: Identifier, VP: " + word + ", Line: " + count + "]");
+                    Arr.add("ID");
+                    Value.add(word);
+                } else {
+                    if (word != "") {
+                        //System.out.println("Invalid token = " + word);
+                    }
+                }
+
+        }
+    }
+
+    public static void main(String[] args) {
+        // TODO code application logic here
+
+        Scanner sc = new Scanner(System.in);
+        String b = "";
+        count = 0;
+        for (int i = 0; b != "stop"; i++) {
+            System.out.print("==> ");
+            String input = sc.nextLine();
+            count++;
+            if (input.equals("stop")) {
+                b = "stop";
+                Arr.add("$");
+              //  System.out.println("Token set:" + Arr);
+                //System.out.println("Token set Value:" + Value);
+                SyntaxAnalyzer z = new SyntaxAnalyzer();
+                z.S();
+            } else {
+                String temp = "";
+                char d;
+                String c = "";
+                char cd = ' ';
+                char ab = ' ';
+                for (i = 0; i < input.length() && c != "comment"; i++) {
+
+                    if (ab == 's') {
+                        if (input.charAt(i) == '\"') {
+                            temp = temp + "\"";
+                            word(temp, count);
+                            temp = "";
+                            ab = ' ';
+                        } else {
+                            temp = temp + input.charAt(i);
+                        }
+                    } else if (input.charAt(i) == '\"') {
+                        ab = 's';
+                        word(temp, count);
+                        temp = "";
+                        temp = "\"";
+                    } else if (input.charAt(0) != '#') {
+
+                        d = input.charAt(i);
+                        switch (d) {
+
+                            case ' ':
+                                word(temp, count);
+                                temp = "";
+                                break;
+
+                            case ',':
+                                word(temp, count);
+                                temp = "";
+                                temp = ",";
+                                word(temp, count);
+                                temp = "";
+                                break;
+
+                            case ':':
+                                word(temp, count);
+                                temp = "";
+                                temp = ":";
+                                word(temp, count);
+                                temp = "";
+                                break;
+
+                            case '.':
+                                if (Character.isLetter(input.charAt(i + 1))) {
+                                    word(temp, count);
+                                    temp = "";
+                                    temp = ".";
+                                    word(temp, count);
+                                    temp = "";
+                                } else {
+                                    temp = temp + ".";
+                                }
+
+                                break;
+
+                            case '(':
+                                word(temp, count);
+                                temp = "";
+                                temp = "(";
+                                word(temp, count);
+                                temp = "";
+                                break;
+
+                            case ')':
+                                word(temp, count);
+                                temp = "";
+                                temp = ")";
+                                word(temp, count);
+                                temp = "";
+                                break;
+
+                            case '[':
+                                word(temp, count);
+                                temp = "";
+                                temp = "[";
+                                word(temp, count);
+                                temp = "";
+                                break;
+
+                            case ']':
+                                word(temp, count);
+                                temp = "";
+                                temp = "]";
+                                word(temp, count);
+                                temp = "";
+                                break;
+
+                            case '-':
+
+                                if (i == input.length() - 1) {
+                                    word(temp, count);
+                                    temp = "";
+                                    temp = "-";
+                                    word(temp, count);
+
+                                } else if (input.charAt(i + 1) == '-') {
+                                    word(temp, count);
+                                    temp = "";
+                                    temp = "--";
+                                    word(temp, count);
+                                    temp = "";
+                                    i = i + 1;
+                                } else if (input.charAt(i + 1) == '=') {
+                                    word(temp, count);
+                                    temp = "";
+                                    temp = "-=";
+                                    word(temp, count);
+                                    temp = "";
+                                    i = i + 1;
+                                } else {
+                                    word(temp, count);
+                                    temp = "";
+                                    temp = "-";
+                                    word(temp, count);
+                                    temp = "";
+                                }
+
+                                break;
+
+                            case '+':
+
+                                if (i == input.length() - 1) {
+                                    word(temp, count);
+                                    temp = "";
+                                    temp = "+";
+                                    word(temp, count);
+
+                                } else if (input.charAt(i + 1) == '+') {
+                                    word(temp, count);
+                                    temp = "";
+                                    temp = "++";
+                                    word(temp, count);
+                                    temp = "";
+                                    i = i + 1;
+                                } else if (input.charAt(i + 1) == '=') {
+                                    word(temp, count);
+                                    temp = "";
+                                    temp = "+=";
+                                    word(temp, count);
+                                    temp = "";
+                                    i = i + 1;
+                                } else {
+                                    word(temp, count);
+                                    temp = "";
+                                    temp = "+";
+                                    word(temp, count);
+                                    temp = "";
+                                }
+
+                                break;
+
+                            case '/':
+                                if (input.charAt(i + 1) == '=') {
+                                    word(temp, count);
+                                    temp = "";
+                                    temp = "/=";
+                                    word(temp, count);
+                                    temp = "";
+                                    i = i + 1;
+                                } else {
+                                    word(temp, count);
+                                    temp = "";
+                                    temp = "/";
+                                    word(temp, count);
+                                    temp = "";
+                                }
+                                break;
+
+                            case '*':
+                                if (input.charAt(i + 1) == '=') {
+                                    word(temp, count);
+                                    temp = "";
+                                    temp = "*=";
+                                    word(temp, count);
+                                    temp = "";
+                                    i = i + 1;
+                                } else {
+                                    word(temp, count);
+                                    temp = "";
+                                    temp = "*";
+                                    word(temp, count);
+                                    temp = "";
+                                }
+                                break;
+
+                            case '%':
+                                if (input.charAt(i + 1) == '=') {
+                                    word(temp, count);
+                                    temp = "";
+                                    temp = "%=";
+                                    word(temp, count);
+                                    temp = "";
+                                    i = i + 1;
+                                } else {
+                                    word(temp, count);
+                                    temp = "";
+                                    temp = "%";
+                                    word(temp, count);
+                                    temp = "";
+                                }
+                                break;
+
+                            case '>':
+
+                                if (i == input.length() - 1) {
+                                    word(temp, count);
+                                    temp = "";
+                                    temp = ">";
+                                    word(temp, count);
+
+                                } else if (input.charAt(i + 1) == '=') {
+                                    word(temp, count);
+                                    temp = "";
+                                    temp = ">=";
+                                    word(temp, count);
+                                    temp = "";
+                                    i = i + 1;
+                                } else {
+                                    word(temp, count);
+                                    temp = "";
+                                    temp = ">";
+                                    word(temp, count);
+                                    temp = "";
+                                }
+                                break;
+
+                            case '<':
+                                if (i == input.length() - 1) {
+                                    word(temp, count);
+                                    temp = "";
+                                    temp = "<";
+                                    word(temp, count);
+
+                                } else if (input.charAt(i + 1) == '=') {
+                                    word(temp, count);
+                                    temp = "";
+                                    temp = "<=";
+                                    word(temp, count);
+                                    temp = "";
+                                    i = i + 1;
+                                } else {
+                                    word(temp, count);
+                                    temp = "";
+                                    temp = "<";
+                                    word(temp, count);
+                                    temp = "";
+                                }
+                                break;
+
+                            case '!':
+
+                                if (i == input.length() - 1) {
+                                    word(temp, count);
+                                    temp = "";
+                                    temp = "!";
+                                    word(temp, count);
+
+                                } else if (input.charAt(i + 1) == '=') {
+                                    word(temp, count);
+                                    temp = "";
+                                    temp = "!=";
+                                    word(temp, count);
+                                    temp = "";
+                                    i = i + 1;
+                                } else {
+                                    word(temp, count);
+                                    temp = "";
+                                    temp = "!";
+                                    word(temp, count);
+                                    temp = "";
+                                }
+
+                                break;
+
+                            case '=':
+
+                                if (i == input.length() - 1) {
+                                    word(temp, count);
+                                    temp = "";
+                                    temp = "=";
+                                    word(temp, count);
+
+                                } else if (input.charAt(i + 1) == '=') {
+                                    word(temp, count);
+                                    temp = "";
+                                    temp = "==";
+                                    word(temp, count);
+                                    temp = "";
+                                    i = i + 1;
+                                } else {
+                                    word(temp, count);
+                                    temp = "";
+                                    temp = "=";
+                                    word(temp, count);
+                                    temp = "";
+                                }
+
+                                break;
+
+                            case '&':
+                                if (input.charAt(i + 1) == '&') {
+                                    word(temp, count);
+                                    temp = "";
+                                } else if (input.charAt(i - 1) == '&') {
+                                    temp = "&&";
+                                    word(temp, count);
+                                    temp = "";
+                                }
+                                break;
+
+                            case '|':
+                                if (input.charAt(i + 1) == '|') {
+                                    word(temp, count);
+                                    temp = "";
+                                } else if (input.charAt(i - 1) == '|') {
+                                    temp = "||";
+                                    word(temp, count);
+                                    temp = "";
+                                }
+                                break;
+
+                            case '#':
+                                word(temp, count);
+                                temp = "";
+                                c = "comment";
+                                break;
+                            default:
+
+                                temp = temp + input.charAt(i);
+                                if (i == input.length() - 1) {
+                                    word(temp, count);
+                                }
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+}
+
+class SyntaxAnalyzer extends JavaApplication24 {
+
+    MT t = new MT();
+    FT f = new FT();
+    DT d = new DT();
+    ArrayList MainTable = new ArrayList();
+    ArrayList FuncTable = new ArrayList();
+    ArrayList DataTable = new ArrayList();
+    static int index = 0;
+    int scope =0;
+    boolean b;
+    Object s;
+    String param="";
+    String type="";
+    
+
+    boolean S() {
+
+        if (class_dec()) {
+
+            if (S()) {
+
+                return true;
+            }
+        } else if (interface_st()) {
+            if (S()) {
+
+                return true;
+            }
+        } else if (Arr.get(index).equals("$")) {
+            System.out.println("NO SYNTAX ERROR");
+            System.out.println("");
+
+            t.Table();
+            System.out.println("");
+            f.F_Table();
+            return true;
+        }
+
+        System.out.println("SYNTAX ERROR" );
+        
+        return false;
+    }
+
+    boolean TH() {
+        if (Arr.get(index).equals("this")) {
+            index++;
+
+            if (Arr.get(index).equals(".")) {
+                index++;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    boolean F_dash() {
+        if (Arr.get(index).equals("Large bracket OP")) {
+            index++;
+            if (Pl()) {
+                if (Arr.get(index).equals("Large bracket CL")) {
+                    index++;
+                    return true;
+                }
+            }
+        } else if (inc_dec()) {
+
+            return true;
+        }
+
+        return false;
+    }
+
+    boolean F() {
+
+        if (TH()) {
+            if (Arr.get(index).equals("ID")) {
+                index++;
+                if (F_dash()) {
+                    return true;
+                }
+
+            }
+        } else if (Arr.get(index).equals("ID")) {
+            index++;
+            if (F_dash()) {
+                return true;
+            } else {
+                return true;
+            }
+
+        } else if (Arr.get(index).equals("Integer constant") || Arr.get(index).equals("String constant") || Arr.get(index).equals("Float constant") || Arr.get(index).equals("Character constant")) {
+
+            index++;
+
+            return true;
+        } else if (Arr.get(index).equals("Large bracket OP")) {
+            index++;
+            if (OE()) {
+                if (Arr.get(index).equals("Large bracket CL")) {
+                    index++;
+                    return true;
+                }
+            }
+        } else if (inc_dec()) {
+            if (Arr.get(index).equals("ID")) {
+                index++;
+                return true;
+            }
+        } else if (Arr.get(index).equals("LO")) {
+            index++;
+            if (F()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    boolean T_dash() {
+        if (Arr.get(index).equals("AO")) {
+            index++;
+            if (F()) {
+                if (T_dash()) {
+                    return true;
+                } else {
+                    return true;
+                }
+
+            }
+
+        }
+
+        return false;
+    }
+
+    boolean T() {
+        if (F()) {
+            if (T_dash()) {
+                return true;
+            } else {
+
+                return true;
+
+            }
+        }
+
+        return false;
+    }
+
+    boolean E_dash() {
+        if (Arr.get(index).equals("AO")) {
+            index++;
+            if (T()) {
+                if (E_dash()) {
+                    return true;
+                } else {
+                    return true;
+                }
+            }
+
+        }
+
+        return false;
+    }
+
+    boolean E() {
+        if (T()) {
+            if (E_dash()) {
+                return true;
+            } else {
+
+                return true;
+
+            }
+        }
+
+        return false;
+    }
+
+    boolean RE_dash() {
+        if (Arr.get(index).equals("RO")) {
+            index++;
+            if (E()) {
+                if (RE_dash()) {
+                    return true;
+                } else {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    boolean RE() {
+
+        if (E()) {
+            if (RE_dash()) {
+                return true;
+            } else {
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    boolean AE_dash() {
+        if (Arr.get(index).equals("LO")) {
+            index++;
+            if (RE()) {
+                if (AE_dash()) {
+                    return true;
+                } else {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    boolean AE() {
+        if (RE()) {
+            if (AE_dash()) {
+                return true;
+            } else {
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    boolean OE_dash() {
+        if (Arr.get(index).equals("LO")) {
+            index++;
+            if (AE()) {
+                if (OE_dash()) {
+                    return true;
+                } else {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    boolean OE() {
+        if (AE()) {
+            if (OE_dash()) {
+                return true;
+            } else {
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    boolean SST() {
+        if(b){
+        if (Arr.get(index).equals("DT")) {
+           FuncTable.add(Value.get(index));
+            index++;
+            if (Arr.get(index).equals("ID")) {
+                if(f.F_Table.contains(Value.get(index)))
+                {
+                    int c=f.F_Table.indexOf(Value.get(index));
+                    if(f.F_Table.get(c+1).equals(scope)){
+                    System.out.println(Value.get(index)+" is already declared");
+                    FuncTable.clear();
+                    index++;
+                     if (dec()) {
+                    return true;
+                } else if (Array()) {
+                    return true;
+                }
+                }
+                    else 
+                    {
+                     FuncTable.add(Value.get(index));
+                     FuncTable.add(scope);
+                     index++;
+
+                if (dec()) {
+                    return true;
+                } else if (Array()) {
+                    return true;
+                }   
+                    }
+                }
+                
+                else{
+                FuncTable.add(Value.get(index));
+                FuncTable.add(scope);
+                index++;
+
+                if (dec()) {
+                    return true;
+                } else if (Array()) {
+                    return true;
+                }
+
+            }
+            
+        } }
+        }
+    //   else if(!b){
+       else if (Arr.get(index).equals("DT")) {
+           DataTable.add(Value.get(index));
+            index++;
+            if (Arr.get(index).equals("ID")) {
+                if(d.DT.contains(Value.get(index)))
+                {
+                    
+                    System.out.println(Value.get(index)+" is already declared");
+                    DataTable.clear();
+                    index++;
+                     if (dec()) {
+                    return true;
+                } else if (Array()) {
+                    return true;
+                }
+                }
+                    else 
+                    {
+                     DataTable.add(Value.get(index));
+                     DataTable.add("null");
+                     index++;
+
+                if (dec()) {
+                    return true;
+                } else if (Array()) {
+                    return true;
+                }   
+                    }
+                }
+        }
+        //}
+                
+               
+
+        
+        else if (print()) {
+            return true;
+        } else if (input()) {
+            return true;
+        } else if (switch_st()) {
+
+            return true;
+        } else if (func_dec()) {
+
+            return true;
+        } else if (for_st()) {
+            return true;
+        } else if (if_else()) {
+            return true;
+        } else if (ArrayL()) {
+            return true;
+        } else if (while_st()) {
+            return true;
+        } else if (Arr.get(index).equals("ID")) {
+            index++;
+            if (COM()) {
+                return true;
+            } else if (X()) {
+                if (Arr.get(index).equals("Colon")) {
+                    index++;
+                    return true;
+                }
+            }
+        } else if (inc_dec_st()) {
+            return true;
+        } else if (Arr.get(index).equals("end")) {
+            index++;
+
+            if (Arr.get(index).equals("Colon")) {
+                index++;
+
+                return true;
+            }
+        } else if (Arr.get(index).equals("jump")) {
+            index++;
+            if (Arr.get(index).equals("Colon")) {
+                index++;
+                return true;
+            }
+        } else if (Arr.get(index).equals("this")) {
+            index++;
+            if (Arr.get(index).equals("Dot")) {
+                index++;
+                if (Arr.get(index).equals("ID")) {
+                    index++;
+                    if (Arr.get(index).equals("Colon")) {
+                        index++;
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    boolean COM() {
+        if (obj_dec_list()) {
+            return true;
+        } else if (X()) {
+
+            return true;
+
+        }
+        return false;
+    }
+
+    boolean D() {
+
+        if (assign_opr()) {
+            if (OE()) {
+                if (Arr.get(index).equals("Colon")) {
+                    index++;
+                    return true;
+                }
+            }
+        } else if (inc_dec()) {
+            if (Arr.get(index).equals("Colon")) {
+                index++;
+                return true;
+            }
+
+        } else if (Arr.get(index).equals("Colon")) {
+            index++;
+            return true;
+        }
+
+        return false;
+    }
+
+    boolean body() {
+        if (Arr.get(index).equals("Small bracket OP")) {
+            scope++;
+            index++;
+
+            if (MST()) {
+                if (Arr.get(index).equals("Small bracket CL")) {
+                    index++;
+
+                    return true;
+                }
+            } else {
+
+                return true;
+            }
+
+        } else if (MST()) {
+
+            return true;
+        }
+
+        return false;
+    }
+
+    boolean MST() {
+        if (SST()) {
+
+            if (MST()) {
+                return true;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    boolean dec() {
+
+        if (init()) {
+
+            if (list()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    boolean init() {
+
+        if (Arr.get(index).equals("assignment")) {
+            index++;
+
+            if (OE()) {
+
+                return true;
+            }
+        } else if (Arr.get(index).equals("Colon")||Arr.get(index).equals("Comma")) {
+
+            return true;
+        }
+        return false;
+    }
+
+    boolean list() {
+       if(b){
+        if (Arr.get(index).equals("Colon")) {
+          if(!FuncTable.isEmpty())
+          {
+              f.F_Table(FuncTable);
+              FuncTable.clear();
+             
+          } 
+            index++;
+          
+            return true;
+        } else if (Arr.get(index).equals("Comma")) {
+            FuncTable.add(Value.get(index-2));
+            index++;
+            if (Arr.get(index).equals("ID")) {
+              FuncTable.add(Value.get(index));
+              FuncTable.add(scope);
+              index++;
+                if (init()) {
+                    if (list()) {
+//                        FuncTable.clear();
+                        return true;
+                    }
+                }
+            }
+
+        }
+       }
+       
+      else if(!b){
+        if (Arr.get(index).equals("Colon")) {
+          if(!DataTable.isEmpty())
+          {
+              d.D_Table(DataTable);
+              DataTable.clear();
+             
+          } 
+            index++;
+          
+            return true;
+        } else if (Arr.get(index).equals("Comma")) {
+            DataTable.add(Value.get(index-2));
+            index++;
+            if (Arr.get(index).equals("ID")) {
+              DataTable.add(Value.get(index));
+              DataTable.add("null");
+              index++;
+                if (init()) {
+                    if (list()) {
+//                        FuncTable.clear();
+                        return true;
+                    }
+                }
+            }
+
+        }
+       }
+       
+        
+
+        return false;
+    }
+
+    boolean Pl() {
+        if (OE()) {
+            if (Pl2()) {
+                return true;
+            } else if (Arr.get(index).equals("Large bracket CL")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    boolean Pl2() {
+        if (Arr.get(index).equals("Comma")) {
+            index++;
+            if (OE()) {
+                if (Pl2()) {
+                    return true;
+                } else if (Arr.get(index).equals("Large bracket CL")) {
+                    return true;
+                }
+
+            }
+        }
+        return false;
+    }
+
+    boolean Pl3() {
+        if (Arr.get(index).equals("DT")) {
+            FuncTable.add(Value.get(index));
+            param = Value.get(index).toString();
+            index++;
+            if (Arr.get(index).equals("ID")) {
+                FuncTable.add(Value.get(index));
+                FuncTable.add(scope);
+                f.F_Table(FuncTable);
+                FuncTable.clear();
+                index++;
+                if (Arr.get(index).equals("Comma")) {
+                    if (f_list()) {
+                        return true;
+                    }
+                } else if (Arr.get(index).equals("Large bracket CL")) {
+                    return true;
+                }
+
+            }
+        }
+        else if(Arr.get(index).equals("Large bracket CL")){return true;}
+        return false;
+    }
+
+    boolean f_list() {
+        if (Arr.get(index).equals("Comma")) {
+            index++;
+            if (Arr.get(index).equals("DT")) {
+                FuncTable.add(Value.get(index));
+                param=param+","+Value.get(index).toString();
+                index++;
+                if (Arr.get(index).equals("ID")) {
+                    FuncTable.add(Value.get(index));
+                    FuncTable.add(scope);
+                    f.F_Table(FuncTable);
+                    FuncTable.clear();
+                    index++;
+                    if (f_list()) {
+                        return true;
+                    } else if (Arr.get(index).equals("Large bracket CL")) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    boolean if_else() {
+
+        if (Arr.get(index).equals("if")) {
+            index++;
+            if (OE()) {
+
+                if (body()) {
+
+                    if (o_else()) {
+                        return true;
+                    } else if (Arr.get(index).equals("Large bracket CL")) {
+
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    boolean o_else() {
+        if (Arr.get(index).equals("else")) {
+            index++;
+            if (body()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    boolean obj_dec_list() {
+
+        if (Arr.get(index).equals("ID")) {
+            index++;
+            if (list1()) {
+                return true;
+            }
+        } else if (Arr.get(index).equals("assignment")) {
+            index++;
+
+            if (list2()) {
+
+                if (Arr.get(index).equals("Colon")) {
+                    index++;
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    boolean list1() {
+        if (Arr.get(index).equals("Colon")) {
+            index++;
+            return true;
+        } else if (Arr.get(index).equals("assignment")) {
+            index++;
+            if (list2()) {
+                if (Arr.get(index).equals("Colon")) {
+                    index++;
+                    return true;
+                }
+
+            }
+        } else if (Arr.get(index).equals("Comma")) {
+            index++;
+            if (Arr.get(index).equals("ID")) {
+                index++;
+                if (list1()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    boolean list2() {
+        if (Arr.get(index).equals("new")) {
+            index++;
+            if (Arr.get(index).equals("ID")) {
+                index++;
+                if (Arr.get(index).equals("Large bracket OP")) {
+                    index++;
+
+                    if (Arr.get(index).equals("Large bracket CL")) {
+                        index++;
+                        return true;
+
+                    }
+                }
+            }
+        } else if (Arr.get(index).equals("ID")) {
+            index++;
+        }
+
+        return false;
+    }
+
+    boolean class_dec() {
+        System.out.println("class called");
+        MainTable.clear();
+        
+        
+        if (AM()) {
+
+            if (Abs()) {
+
+                if (Arr.get(index).equals("class")) {
+                    MainTable.add(Value.get(index));
+                    index++;
+                    if (Arr.get(index).equals("ID")) {
+                        if (t.Table.contains(Value.get(index))) {
+                            System.out.println(Value.get(index) + " is already declared");
+                            MainTable.clear();
+                        } else {
+                            MainTable.add(Value.get(index));
+                             s=Value.get(index);
+                        }
+                        index++;
+                        if (extend() || implement()) {
+                            if (!MainTable.isEmpty()) {
+                              //  System.out.println("main table" + MainTable);
+                                t.Table(MainTable);
+                              //  System.out.println("table" + t.Table);
+
+                            }
+
+                            if (Arr.get(index).equals("Large bracket OP")) {
+                                scope++;
+                                index++;
+                                if (class_body()) {
+
+                                    if (Arr.get(index).equals("Large bracket CL")) {
+                                      
+                                       d.D_Table(s);
+                                       d.DT.clear();
+                                        index++;
+                                        return true;
+                                    }
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    
+            
+        
+
+        return false;
+}
+
+    boolean Abs() {
+        if (Arr.get(index).equals("abstract")) {
+            MainTable.add(Value.get(index));
+            index++;
+            return true;
+        } else if (Arr.get(index).equals("class")) {
+            MainTable.add("General");
+            return true;
+        }
+        return false;
+    }
+
+    boolean AM() {
+        if (Arr.get(index).equals("AM")) {
+            MainTable.add(Value.get(index));
+            index++;
+            return true;
+        } else if (Arr.get(index).equals("abstract") || Arr.get(index).equals("class")) {
+            MainTable.add("null");
+            return true;
+        }
+
+        return false;
+    }
+
+    boolean extend() {
+
+        if (Arr.get(index).equals("Inheritance")) {
+            index++;
+            {
+
+                if (Arr.get(index).equals("ID")) {
+                    if (!MainTable.isEmpty()) {
+                        if (t.Table.contains(Value.get(index))) {
+                            MainTable.add(Value.get(index));
+
+                        } else {
+                            System.out.println(Value.get(index) + " is not declared");
+                            MainTable.clear();
+                        }
+                    }
+                    index++;
+                    return true;
+                }
+            }
+        } else if (Arr.get(index).equals("Large bracket OP")) {
+           
+            if (!MainTable.isEmpty()) {
+                MainTable.add("null");
+            }
+            return true;
+        }
+        return false;
+    }
+
+    boolean implement() {
+        if (Arr.get(index).equals("implements")) {
+            index++;
+            {
+
+                if (Arr.get(index).equals("ID")) {
+                   if (!MainTable.isEmpty()) {
+                        if (t.Table.contains(Value.get(index))) {
+                          int a=t.Table.indexOf(Value.get(index));
+                           if(t.Table.get(a-1).equals("interface")){
+                            MainTable.add(Value.get(index));
+                           }
+                           else
+                           {
+                               System.out.println(Value.get(index)+" is not an interface");
+                               MainTable.clear();
+                           }
+
+                        } else {
+                            System.out.println(Value.get(index) + " is not declared");
+                            MainTable.clear();
+                        }
+                    }
+                    
+                    index++;
+                    return true;
+                }
+            }
+        } else if (Arr.get(index).equals("Large bracket OP")) {
+            
+           if (!MainTable.isEmpty()) {
+                MainTable.add("null");
+            }
+            return true;
+        }
+        return false;
+    }
+
+    boolean class_body() {
+        if(Arr.get(index).equals("Large bracket CL"))
+        {
+             return true;
+        }
+        else if (main_method()) {
+            return true;
+        } else if (body()) {
+
+            return true;
+        }
+        return false;
+    }
+
+    boolean main_method() {
+        if (Arr.get(index).equals("main")) {
+            index++;
+
+            if (body()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    boolean func_dec() {
+        System.out.println(" func called");
+        if (Arr.get(index).equals("AM")) {
+            System.out.println(Value.get(index));
+//            DataTable.add(0, " ");
+//            DataTable.add(1, " ");
+            DataTable.add(Value.get(index));
+            index++;
+            if (return_type()) {
+               
+                if (Arr.get(index).equals("ID")) {
+                  DataTable.add(Value.get(index));
+                    index++;
+                    if (Arr.get(index).equals("Large bracket OP")) {
+                        
+                        scope++;
+                        index++;
+                        if (Pl3()) {
+                          
+                            if (Arr.get(index).equals("Large bracket CL")) {
+                                index++;
+                                param=param+" --> "+type;
+                                DataTable.add(param);
+                                d.D_Table(DataTable);
+                                DataTable.clear();
+                                
+                                if (Arr.get(index).equals("Small bracket OP")) {
+                                    b=true;
+                                    index++;
+                                    if (func_body()) {
+
+                                        return true;
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    boolean return_type() {
+        if (Arr.get(index).equals("DT")) {
+            type=Value.get(index).toString();
+            index++;
+            return true;
+        }
+        return false;
+    }
+
+    boolean func_body() {
+
+        if (MST()) {
+           
+            if (ret_line()) {
+              
+                if (Arr.get(index).equals("Small bracket CL")) {
+                    b=false;
+                    index++;
+                    return true;
+                }
+            } else if (Arr.get(index).equals("Small bracket CL")) {
+                b=false;
+                index++;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    boolean ret_line() {
+        if (Arr.get(index).equals("return")) {
+            index++;
+            if (ret()) {
+                if (Arr.get(index).equals("Colon")) {
+                    index++;
+                    return true;
+                }
+
+            }
+
+        }
+        return false;
+    }
+
+    boolean ret() {
+
+        if (OE()) {
+            return true;
+        } else if (Arr.get(index).equals("Small bracket CL")) {
+
+            return true;
+        }
+        return false;
+    }
+
+    boolean X() {
+
+        if (Arr.get(index).equals("Dot")) {
+            index++;
+            if (Arr.get(index).equals("ID")) {
+                index++;
+                if (X()) {
+                    return true;
+                } else if (D()) {
+                    return true;
+                }
+            } else if (func_call()) {
+                if (X2()) {
+                    return true;
+                }
+            }
+
+        } else if (Arr.get(index).equals("Large bracket OP")) {
+
+            index++;
+            if (index()) {
+
+                if (Arr.get(index).equals("Large bracket CL")) {
+                    index++;
+                    if (X3()) {
+                        return true;
+                    } else if (D()) {
+                        //System.out.println("d is true" + Arr.get(index));
+                        return true;
+                    }
+
+                }
+            }
+
+        } else if (D()) {
+            return true;
+        }
+        else if(Arr.get(index).equals("assignment")){return true;}
+
+        return false;
+    }
+
+    boolean X2() {
+        if (Arr.get(index).equals("Dot")) {
+
+            index++;
+            if (Arr.get(index).equals("ID")) {
+                index++;
+                if (X()) {
+                    return true;
+                }
+
+            }
+        } else if (Arr.get(index).equals("Colon")) {
+            index++;
+            return true;
+        }
+        return false;
+    }
+
+    boolean X3() {
+        if (Arr.get(index).equals("Dot")) {
+
+            index++;
+            if (Arr.get(index).equals("ID")) {
+                index++;
+                if (X()) {
+
+                    return true;
+                }
+
+            }
+        }
+        return false;
+    }
+
+    boolean index() {
+
+        if (Arr.get(index).equals("Integer constant")) {
+
+            index++;
+            return true;
+        }
+        return false;
+    }
+
+    boolean func_call() {
+        if (Arr.get(index).equals("function")) {
+            index++;
+            if (Arr.get(index).equals("ID")) {
+                index++;
+                if (Arr.get(index).equals("Large bracket OP")) {
+                    index++;
+                    if (Arr.get(index).equals("Large bracket CL")) {
+                        index++;
+                        return true;
+                    } else if (fn_list()) {
+                        return true;
+                    }
+
+                }
+            }
+        }
+        return false;
+    }
+
+    boolean fn_list() {
+
+        if (Arr.get(index).equals("Integer constant") || Arr.get(index).equals("String constant") || Arr.get(index).equals("Float constant") || Arr.get(index).equals("Character constant")) {
+            index++;
+            if (Arr.get(index).equals("Large bracket CL")) {
+                index++;
+
+                return true;
+            } else if (Arr.get(index).equals("Comma")) {
+                index++;
+                if (fn_list()) {
+                    return true;
+                }
+            }
+
+        }
+
+        return false;
+    }
+
+    boolean assign_st() {
+    
+        if (Arr.get(index).equals("ID")) {
+            index++;
+            if (X()) {
+                
+                if (assign_opr()) {
+                    
+                    if (OE()) {
+                        if (Arr.get(index).equals("Colon")) {
+                            index++;
+                            return true;
+                        }
+                    }
+                }
+
+            }
+
+        }
+        return false;
+    }
+
+    boolean assign_opr() {
+      
+        if (Arr.get(index).equals("assignment") || Arr.get(index).equals("CO")) {
+            index++;
+            return true;
+        }
+        return false;
+    }
+
+    boolean inc_dec_st() {
+        if (Arr.get(index).equals("inc/dec")) {
+            index++;
+            if (Arr.get(index).equals("ID")) {
+                index++;
+                if (X()) {
+
+                    if (Arr.get(index).equals("Colon")) {
+                        index++;
+                    }
+                }
+
+            } else if (Arr.get(index).equals("ID")) {
+                index++;
+                if (X()) {
+                    if (inc_dec()) {
+                        if (Arr.get(index).equals("Colon")) {
+                            index++;
+                            return true;
+                        }
+                    }
+                }
+
+            }
+
+        }
+        return false;
+    }
+
+    boolean inc_dec() {
+
+        if (Arr.get(index).equals("inc/dec")) {
+            index++;
+            return true;
+        }
+        return false;
+    }
+
+    boolean constant() {
+        if (Arr.get(index).equals("DT")) {
+            index++;
+            return true;
+        }
+        return false;
+    }
+
+    boolean for_st() {
+
+        if (Arr.get(index).equals("for")) {
+
+            index++;
+            if (Arr.get(index).equals("Large bracket OP")) {
+
+                index++;
+                if (c1()) {
+
+                    if (c2()) {
+
+                        if (Arr.get(index).equals("Colon")) {
+                            index++;
+                            if (c3()) {
+
+                                if (Arr.get(index).equals("Large bracket CL")) {
+                                    index++;
+                                    if (body()) {
+
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    boolean c1() {
+        if (Arr.get(index).equals("DT")) {
+            index++;
+            if (Arr.get(index).equals("ID")) {
+                index++;
+                if (dec()) {
+
+                    return true;
+                }
+            }
+        } else if (assign_st()) {
+            return true;
+        } else if (Arr.get(index).equals("Colon")) {
+            index++;
+            return true;
+        }
+        return false;
+    }
+
+    boolean c2() {
+
+        if (OE()) {
+            return true;
+        } else if (Arr.get(index).equals("Colon")) {
+
+            return true;
+        }
+        return false;
+    }
+
+    boolean c3() {
+        if (Arr.get(index).equals("ID")) {
+
+            index++;
+          
+
+            if (Arr.get(index).equals("CO") || Arr.get(index).equals("inc/dec")) {
+
+                if (c4()) {
+                    return true;
+                }
+            } else if (X()) {
+                if (c4()) {
+                    return true;
+                }
+            }
+
+        } else if (inc_dec()) {
+            if (Arr.get(index).equals("ID")) {
+                index++;
+                if (X()) {
+                    return true;
+                }
+            }
+        } else if (Arr.get(index).equals("Large bracket CL")) {
+
+            return true;
+        }
+        return false;
+    }
+
+    boolean c4() {
+        if (assign_opr()) {
+            if (OE()) {
+                return true;
+            }
+        } else if (inc_dec()) {
+            return true;
+        }
+        return false;
+    }
+
+    boolean while_st() {
+        if (Arr.get(index).equals("while")) {
+            index++;
+            if (OE()) {
+
+                System.out.println(Arr.get(index));
+                if (body()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    boolean switch_st() {
+
+        if (Arr.get(index).equals("switch")) {
+            index++;
+            if (OE()) {
+
+                if (Arr.get(index).equals("Small bracket OP")) {
+                    scope++;
+                    index++;
+
+                    if (case_()) {
+
+                        if (Arr.get(index).equals("Small bracket CL")) {
+                            index++;
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    boolean case_() {
+        if (Arr.get(index).equals("opt")) {
+            index++;
+            if (Arr.get(index).equals("Integer constant") || Arr.get(index).equals("String constant") || Arr.get(index).equals("Float constant") || Arr.get(index).equals("Character constant")) {
+                index++;
+                if (Arr.get(index).equals("Colon")) {
+                    index++;
+
+                    if (body()) {
+
+                        System.out.println(Arr.get(index));
+
+                        if (case_()) {
+                            return true;
+                        } else if (default_st()) {
+
+                            return true;
+
+                        }
+
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    boolean default_st() {
+
+        if (Arr.get(index).equals("default")) {
+            index++;
+            if (Arr.get(index).equals("Colon")) {
+                index++;
+
+                if (body()) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    boolean ArrayL() {
+
+        if (Arr.get(index).equals("ArrayList")) {
+            index++;
+            if (Arr.get(index).equals("Small bracket OP")) {
+                index++;
+                if (Arr.get(index).equals("DT")) {
+                    index++;
+                    if (Arr.get(index).equals("Small bracket CL")) {
+                        index++;
+                        if (Arr.get(index).equals("ID")) {
+                            index++;
+                            if (Arr.get(index).equals("assignment")) {
+                                index++;
+                                if (Arr.get(index).equals("new")) {
+                                    index++;
+                                    if (Arr.get(index).equals("ArrayList")) {
+                                        index++;
+                                        if (Arr.get(index).equals("Large bracket OP")) {
+                                            index++;
+                                            if (Arr.get(index).equals("Large bracket CL")) {
+                                                index++;
+                                                if (Arr.get(index).equals("Colon")) {
+                                                    index++;
+                                                    return true;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    boolean Array() {
+       
+
+        if (Arr.get(index).equals("Large bracket OP")) {
+            index++;
+            if (Arr.get(index).equals("Large bracket CL")) {
+                index++;
+                if (Arr.get(index).equals("Large bracket OP")) {
+                    if (two_d_array()) {
+                        return true;
+                    }
+
+                } else if (arrlist()) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    boolean arrlist() {
+
+        if (Arr.get(index).equals("Colon")) {
+            index++;
+            return true;
+        } else if (Arr.get(index).equals("assignment")) {
+            index++;
+            if (Arr.get(index).equals("Small bracket OP")) {
+                index++;
+                if (Arr.get(index).equals("Integer constant") || Arr.get(index).equals("String constant") || Arr.get(index).equals("Float constant") || Arr.get(index).equals("Character constant")) {
+                    index++;
+                    if (arr2list()) {
+                        if (Arr.get(index).equals("Small bracket CL")) {
+                            index++;
+                            if (Arr.get(index).equals("Colon")) {
+                                index++;
+                                return true;
+                            }
+                        }
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    boolean arr2list() {
+        if (Arr.get(index).equals("Comma")) {
+            index++;
+            if (Arr.get(index).equals("Integer constant") || Arr.get(index).equals("String constant") || Arr.get(index).equals("Float constant") || Arr.get(index).equals("Character constant")) {
+                index++;
+                if (arr2list()) {
+                    return true;
+                } else if (Arr.get(index).equals("Small bracket CL")) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    boolean two_d_array() {
+
+        System.out.println("two d called" + Arr.get(index));
+        if (Arr.get(index).equals("Large bracket OP")) {
+            index++;
+            if (Arr.get(index).equals("Large bracket CL")) {
+                index++;
+                if (B1()) {
+                    System.out.println("b1 true");
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    boolean B1() {
+        if (Arr.get(index).equals("Colon")) {
+            index++;
+            return true;
+        } else if (Arr.get(index).equals("assignment")) {
+            index++;
+            if (Arr.get(index).equals("Small bracket OP")) {
+                index++;
+                if (Arr.get(index).equals("Small bracket OP")) {
+                    index++;
+                    if (Arr.get(index).equals("Integer constant") || Arr.get(index).equals("String constant") || Arr.get(index).equals("Float constant") || Arr.get(index).equals("Character constant")) {
+                        index++;
+                        if (B2()) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    boolean B2() {
+
+        if (Arr.get(index).equals("Comma")) {
+            index++;
+            if (Arr.get(index).equals("Integer constant") || Arr.get(index).equals("String constant") || Arr.get(index).equals("Float constant") || Arr.get(index).equals("Character constant")) {
+                index++;
+                if (B2()) {
+                    return true;
+                }
+            }
+        } else if (Arr.get(index).equals("Small bracket CL")) {
+            index++;
+            if (B3()) {
+                return true;
+            } else if (Arr.get(index).equals("Small bracket CL")) {
+                index++;
+
+                if (Arr.get(index).equals("Colon")) {
+                    index++;
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    boolean B3() {
+
+        if (Arr.get(index).equals("Comma")) {
+            index++;
+            if (Arr.get(index).equals("Small bracket OP")) {
+                index++;
+                if (Arr.get(index).equals("Integer constant") || Arr.get(index).equals("String constant") || Arr.get(index).equals("Float constant") || Arr.get(index).equals("Character constant")) {
+                    index++;
+                    if (B2()) {
+                        return true;
+                    }
+                }
+
+            }
+        }
+
+        return false;
+    }
+
+    boolean print() {
+        if (Arr.get(index).equals("print")) {
+            index++;
+            if (Arr.get(index).equals("Large bracket OP")) {
+                index++;
+                if (pl_list()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    boolean pl_list() {
+        if (Arr.get(index).equals("String constant")) {
+            index++;
+
+            if (Arr.get(index).equals("Large bracket CL")) {
+                index++;
+                if (Arr.get(index).equals("Colon")) {
+                    index++;
+                    return true;
+                }
+            } else if (Arr.get(index).equals("Comma")) {
+                index++;
+                if (Arr.get(index).equals("ID")) {
+                    index++;
+                    if (pl_list()) {
+                        return true;
+                    } else if (Arr.get(index).equals("Large bracket CL")) {
+                        index++;
+                        if (Arr.get(index).equals("Colon")) {
+                            index++;
+                            return true;
+                        }
+                    }
+                }
+            }
+
+        } else if (Arr.get(index).equals("ID")) {
+            index++;
+            if (Arr.get(index).equals("Large bracket CL")) {
+                index++;
+                if (Arr.get(index).equals("Colon")) {
+                    index++;
+                    return true;
+                }
+            } else if (Arr.get(index).equals("Comma")) {
+                index++;
+                if (pl_list()) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    boolean input() {
+        if (Arr.get(index).equals("input")) {
+            index++;
+            if (Arr.get(index).equals("Large bracket OP")) {
+                index++;
+                if (Arr.get(index).equals("ID")) {
+                    index++;
+                    if (Arr.get(index).equals("Large bracket CL")) {
+                        index++;
+                        if (Arr.get(index).equals("Colon")) {
+                            index++;
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    boolean interface_st() {
+        MainTable.add("null");
+        MainTable.add("null");
+        if (Arr.get(index).equals("interface")) {
+           MainTable.add(Value.get(index));
+            index++;
+            if (Arr.get(index).equals("ID")) {
+                if (t.Table.contains(Value.get(index))) {
+                            System.out.println(Value.get(index) + " is already declared");
+                            MainTable.clear();
+                        } else {
+                            MainTable.add(Value.get(index));
+                        }
+                index++;
+                if (implement()) {
+                   if (!MainTable.isEmpty()) {
+                              //  System.out.println("main table" + MainTable);
+                                t.Table(MainTable);
+                              //  System.out.println("table" + t.Table);
+
+                            }
+                    if (Arr.get(index).equals("Large bracket OP")) {
+
+                        index++;
+                        if (interface_function()) {
+
+                            if (Arr.get(index).equals("Large bracket CL")) {
+                                index++;
+                                return true;
+                            }
+
+                        }
+
+                    }
+
+                }
+            }
+        }
+        return false;
+    }
+
+    boolean interface_function() {
+        if (AM()) {
+
+            if (return_type()) {
+
+                if (Arr.get(index).equals("ID")) {
+                    index++;
+                    if (Arr.get(index).equals("Large bracket OP")) {
+                        index++;
+
+                        if (Arr.get(index).equals("Large bracket CL")) {
+                            index++;
+
+                            if (Arr.get(index).equals("Colon")) {
+                                index++;
+                                if (interface_function()) {
+                                    return true;
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+        } else if (Arr.get(index).equals("Large bracket CL")) {
+            return true;
+        }
+
+        return false;
+    }
+
+}
+
+class MT {
+
+    ArrayList  Table = new ArrayList();
+
+    void Table(ArrayList A) {
+        Object AccesModifiers = A.get(0);
+        Object Category = A.get(1);
+        Object Type = A.get(2);
+        Object Name = A.get(3);
+        Object Parent = A.get(4);
+       
+        
+      
+
+        Table.add(AccesModifiers);
+        Table.add(Category);
+        Table.add(Type);
+        Table.add(Name);
+        Table.add(Parent);
+        //Table.add(Link);
+        
+        
+    }
+
+    void Table() {
+        System.out.println("\t \t \t \t \t  Main Table:");
+        System.out.println("\t \t \t \t \t  ==========");
+        System.out.println("--------------------------------------------------------------------------------------");
+        System.out.println("Access Modifier " + "   Category " +  "           Type " + "           Name " + "         Parent " + "     Link");
+        System.out.println("--------------------------------------------------------------------------------------");
+        for (int i = 0; i < Table.size(); i++) {
+
+            System.out.print("  " + Table.get(i) + "           ");
+            if ((i + 1) % 5 == 0) {
+                System.out.println("");
+                System.out.println("--------------------------------------------------------------------------------------");
+            }
+        }
+    }
+    
+}
+class FT {
+
+    ArrayList  F_Table = new ArrayList();
+
+    void F_Table(ArrayList F) {
+        
+      Object Name= F.get(0);
+      Object Type= F.get(1);
+      Object Scope= F.get(2);
+     
+      F_Table.add(Name);
+      F_Table.add(Type);
+      F_Table.add(Scope);
+      System.out.println(F_Table);
+  }
+
+    void F_Table() {
+        System.out.println("\t \t \t \t \t Function Table:");
+        System.out.println("\t \t \t \t \t ==============");
+        System.out.println("\t\t     ----------------------------------------------------");
+        System.out.println( " \t\t      Type" +  " \t\t     Name  " + " \t\t    Scope");
+        System.out.println("\t\t     ----------------------------------------------------");
+        for (int i = 0; i < F_Table.size(); i++) {
+
+            System.out.print(" \t\t      " + F_Table.get(i)   );
+            if ((i + 1) % 3 == 0) {
+                System.out.println("");
+                System.out.println("\t\t     ----------------------------------------------------");
+            }
+        }
+    }
+    
+}
+
+
+class DT
+{     
+        ArrayList DT = new ArrayList() ;
+      
+        
+        
+      void D_Table(ArrayList D) {
+        
+      Object Type= D.get(0);
+      Object Name= D.get(1);
+      Object AM= D.get(2);
+     
+      DT.add(Type);
+      DT.add(Name);
+      DT.add(AM);
+          System.out.println(DT);
+     
+  }
+
+    void D_Table(Object s) {
+        System.out.println("\t \t \t \t \t Class "+s+" Body Table:");
+        System.out.println("\t \t \t \t \t ===================");
+        System.out.println(" \t\t      --------------------------------------------------------------");
+        System.out.println( " \t\t      Type" +  " \t\t     Name  " + " \t\t    Access Modifiers");
+        System.out.println(" \t\t      --------------------------------------------------------------");
+        for (int i = 0; i < DT.size(); i++) {
+
+            System.out.print(" \t\t      " + DT.get(i)   );
+            if ((i + 1) % 3 == 0) {
+                System.out.println("");
+                 System.out.println(" \t\t      --------------------------------------------------------------");
+            }
+        }
+    }
+        
+}
